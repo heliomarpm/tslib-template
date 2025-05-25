@@ -1,21 +1,16 @@
 /**
- * Template for Typescript applications v2.2
- * @module helloWorld
+ * Template inicial para construção de bibliotecas em TypeScript
+ * @module
  * @author Heliomar P. Marques
  */
+import { capitalize, reverseString } from "./utils";
 
 /**
- * Returns the string "Hello, World!".
- * @returns "Hello, World!"
- * @example
- * console.log(helloWorld()); // output: "Hello, World!"
- */
-function helloWorld() {
-	return "Hello, World!";
-}
-
-/**
- * A simple function that returns "Hello, World!".
+ * Classe principal da biblioteca, pode ser utilizada para instanciar objetos
+ *
  * @default
  */
-export { helloWorld };
+export default {
+	capitalize,
+	reverseString,
+};
