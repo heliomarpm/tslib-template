@@ -1,21 +1,21 @@
 {
   "private": true,
-  "name": "tsapp-template",
-  "version": "1.2.0",
-  "description": "Template para bibliotecas TypeScript: commits semânticos, documentação com TypeDoc, CI/CD com GitHub Actions e publicação automática no npm — pré-configurado com Husky, Vitest e Conventional Changelog.",
+  "name": "@heliomarpm/tslib-template",
+  "version": "0.0.0",
+  "description": "Template for TypeScript libraries: semantic commits, documentation with TypeDoc, CI/CD with GitHub Actions and automatic publishing to npm — pre-configured with Husky, Vitest and Conventional Changelog.",
   "author": "Heliomar P. Marques",
   "main": "dist/index.js",
   "license": "MIT",
-  "homepage": "https://github.com/heliomarpm/tsapp-template#readme",
+  "homepage": "https://github.com/heliomarpm/tslib-template#readme",
   "bugs": {
-    "url": "https://github.com/heliomarpm/tsapp-template/issues"
+    "url": "https://github.com/heliomarpm/tslib-template/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heliomarpm/tsapp-template.git"
+    "url": "git+https://github.com/heliomarpm/tslib-template.git"
   },
   "keywords": [
-    "tsapp",
+    "tslib",
     "typescript",
     "typescript-application",
     "typescript-boilerplate",
