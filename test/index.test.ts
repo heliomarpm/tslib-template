@@ -1,12 +1,13 @@
-import { describe, expect, test } from "vitest";
-import { helloWorld } from "../src/index";
+import { describe, it, expect } from 'vitest';
 
-describe("helloWorld function", () => {
-	test("returns the expected string", () => {
-		expect(helloWorld()).toBe("Hello, World!");
-	});
+import lib from '../src/index';
 
-	test("does not throw any errors", () => {
-		expect(() => helloWorld()).not.toThrow();
-	});
+describe('Biblioteca Principal', () => {
+  it('capitalize() deve capitalizar palavras', () => {
+    expect(lib.capitalize('hello world')).toBe('Hello World');
+  });
+
+  it('reverseString() deve inverter strings', () => {
+    expect(lib.reverseString('123')).toBe('321');
+  });
 });
