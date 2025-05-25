@@ -2,15 +2,13 @@
 <h1>
   <br> 📦 TypeScript Application Template
 
-<!-- [Overview](/coverage/index.html){target="_self"} -->
-
   [![CodeQL][url-codeql-badge]][url-codeql]
   [![Test][url-test-badge]][url-test]
   [![Coverage][url-coverage-badge]][url-coverage-report]
   [![Release][url-release-badge]][url-release]
 
-  <!-- ![Node.js](https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node.js&logoColor=white)
-  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) -->
+  ![Node.js](https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node.js&logoColor=white)
+  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
   ![Biome](https://img.shields.io/badge/biomejs-%23404d59.svg?style=for-the-badge&logo=biome&logoColor=white)
   ![Semantic Release](https://img.shields.io/badge/semantic_release-%23000000.svg?style=for-the-badge&logo=semantic-release&logoColor=white)
   [![License](https://img.shields.io/github/license/heliomarpm/tsapp-template?style=for-the-badge)](./LICENSE)
@@ -30,7 +28,7 @@
 
 ## 📚 Summary
 
-**Professional Template** with CI/CD-enabled, versioning with Semantic Release and Typedoc+VitePress documentation.
+**Professional TypeScript Library template** with CI/CD-enabled, versioning with Semantic Release and Typedoc+VitePress documentation.
 
 ## 🔀 PR Workflow
 
@@ -56,6 +54,7 @@ gitGraph
 - ☑️ Semantic Release
 - ☑️ GitHub Actions CI/CD 
 - ☑️ GitHub Actions GitHub Pages
+- ☑️ Automated NPM/GPR Publishing
 
 **Quality Assurance**
 - ☑️ BiomeJS (Linting/Formatting)
@@ -93,6 +92,7 @@ Workflow | Description | Trigger
 `1.create-pr.yml` | Creates or updates a pull request from `develop` to `main` | Push to `develop`
 `2.deploy-docs.yml` | Deploys documentation and coverage badge | After a successful release 
 `3.release.yml` | Generates changelog, tags, and releases | Push to `main`
+`4.publish-npm.yml` | Publishes package to npm | After a successful release
 
 <details>
 <summary>Show full workflow</summary>
@@ -137,8 +137,8 @@ flowchart TD
 ## 🚀 Quick Start
 
 ```bash
-npx degit heliomarpm/tsapp-template your-app
-cd your-app
+npx degit heliomarpm/tslib-template your-lib
+cd your-lib
 npm install
 ```
 ### 🛠️ Initial Setup
@@ -152,9 +152,9 @@ npm install
    - Enable GitHub Actions (Settings → Actions → General)
    - Set up branch protection rules (optional)
    - Configure GitHub Pages for documentation
-  
-<!-- - Generate [npm authentication token](https://docs.npmjs.com/creating-and-viewing-access-tokens) and copy it.
-- [Navigate to your GitHub repository page, click Settings and then Secrets. Click on New repository secret, fill in `NPM_TOKEN` as the Name, paste the npm token created on the previous step inside the Value field and hit Add secret. -->
+   - Remove `if false` from `publish-npm.yml`
+   - Generate [npm authentication token](https://docs.npmjs.com/creating-and-viewing-access-tokens) and copy it.
+   - [Navigate to your GitHub repository page, click Settings and then Secrets. Click on New repository secret, fill in `NPM_TOKEN` as the Name, paste the npm token created on the previous step inside the Value field and hit Add secret.
 
 ---
 ## 📈 Semantic Versioning
