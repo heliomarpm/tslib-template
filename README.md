@@ -11,7 +11,7 @@
   ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
   ![Biome](https://img.shields.io/badge/biomejs-%23404d59.svg?style=for-the-badge&logo=biome&logoColor=white)
   ![Semantic Release](https://img.shields.io/badge/semantic_release-%23000000.svg?style=for-the-badge&logo=semantic-release&logoColor=white)
-  [![License](https://img.shields.io/github/license/heliomarpm/tsapp-template?style=for-the-badge)](./LICENSE)
+  [![License](https://img.shields.io/github/license/heliomarpm/tslib-template?style=for-the-badge)](./LICENSE)
   <a href="https://navto.me/heliomarpm" target="_blank"><img src="https://navto.me/assets/navigatetome-brand.png" width="32"/></a>
 
 </h1>
@@ -145,7 +145,7 @@ npm install
 1. Replace template info:
    - Update `name` and `description` in `package.json`
    - Set version to `0.0.0` in `package.json`
-   - Replace all references to `tsapp-template` and `heliomarpm` in `package.json` and `README.md`
+   - Replace all references to `tslib-template` and `heliomarpm` in `package.json` and `README.md`
    - Delete `CHANGELOG.md`
 
 2. Configure GitHub repository:
@@ -341,9 +341,9 @@ We welcome contributions! Please read:
 
 Thank you to everyone who has already contributed to the project!
 
-<a href="https://github.com/heliomarpm/tsapp-template/graphs/contributors" target="_blank">
-  <!-- <img src="https://contrib.rocks/image?repo=heliomarpm/tsapp-template" /> -->
-  <img src="https://contrib.nn.ci/api?repo=heliomarpm/tsapp-template&no_bot=true" />
+<a href="https://github.com/heliomarpm/tslib-template/graphs/contributors" target="_blank">
+  <!-- <img src="https://contrib.rocks/image?repo=heliomarpm/tslib-template" /> -->
+  <img src="https://contrib.nn.ci/api?repo=heliomarpm/tslib-template&no_bot=true" />
 </a>
 
 <!-- ###### Made with [contrib.rocks](https://contrib.rocks). -->
@@ -390,16 +390,16 @@ Help us maintain and improve this template:
 [url-github-sponsors]: https://github.com/sponsors/heliomarpm
 
 <!-- GitHub Actions badges -->
-[url-test-badge]: https://github.com/heliomarpm/tsapp-template/actions/workflows/0.test.yml/badge.svg
-[url-test]: https://github.com/heliomarpm/tsapp-template/actions/workflows/0.test.yml
-[url-coverage-badge2]: https://img.shields.io/badge/coverage-dynamic.svg?label=coverage&color=informational&style=flat&logo=jest&query=$.coverage&url=https://heliomarpm.github.io/tsapp-template/coverage-badge.json
-[url-coverage-badge]: https://img.shields.io/endpoint?url=https://heliomarpm.github.io/tsapp-template/coverage/coverage-badge.json
-[url-coverage-report]: https://heliomarpm.github.io/tsapp-template/coverage
+[url-test-badge]: https://github.com/heliomarpm/tslib-template/actions/workflows/0.test.yml/badge.svg
+[url-test]: https://github.com/heliomarpm/tslib-template/actions/workflows/0.test.yml
+[url-coverage-badge2]: https://img.shields.io/badge/coverage-dynamic.svg?label=coverage&color=informational&style=flat&logo=jest&query=$.coverage&url=https://heliomarpm.github.io/tslib-template/coverage-badge.json
+[url-coverage-badge]: https://img.shields.io/endpoint?url=https://heliomarpm.github.io/tslib-template/coverage/coverage-badge.json
+[url-coverage-report]: https://heliomarpm.github.io/tslib-template/coverage
 
-<!-- https://img.shields.io/endpoint?url=https://heliomarpm.github.io/tsapp-template/coverage-badge.json&label=coverage&suffix=%25 -->
+<!-- https://img.shields.io/endpoint?url=https://heliomarpm.github.io/tslib-template/coverage-badge.json&label=coverage&suffix=%25 -->
 
-[url-release-badge]: https://github.com/heliomarpm/tsapp-template/actions/workflows/3.release.yml/badge.svg
-[url-release]: https://github.com/heliomarpm/tsapp-template/actions/workflows/3.release.yml
+[url-release-badge]: https://github.com/heliomarpm/tslib-template/actions/workflows/3.release.yml/badge.svg
+[url-release]: https://github.com/heliomarpm/tslib-template/actions/workflows/3.release.yml
 
-[url-codeql-badge]: https://github.com/heliomarpm/tsapp-template/actions/workflows/codeql.yml/badge.svg 
-[url-codeql]: https://github.com/heliomarpm/tsapp-template/security/code-scanning
+[url-codeql-badge]: https://github.com/heliomarpm/tslib-template/actions/workflows/codeql.yml/badge.svg 
+[url-codeql]: https://github.com/heliomarpm/tslib-template/security/code-scanning

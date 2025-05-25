@@ -27,7 +27,7 @@ features:
   - icon: 🌱
     title: TSApp Template
     details: TypeScript Template, Vitest, CI/CD, semantic-release, Conventional Changelog, TypeDoc, GitHub Actions
-    link: https://heliomarpm.github.io/tsapp-template/
+    link: https://heliomarpm.github.io/tslib-template/
     
   - icon:
       src: https://navto.me/assets/favicon.png

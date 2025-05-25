@@ -28,9 +28,6 @@ Thank you for considering contributing to this project! Your help makes it bette
 * `npm run release:test` — dry run semantic release 
 -->
 
-## 💡 Suggestions & Feedback
-
-Issues and feature requests are welcome! Use the [Issues tab](https://github.com/heliomarpm/tsapp-template/issues) to report bugs or request new features.
 
 
 ## Commit Message Format

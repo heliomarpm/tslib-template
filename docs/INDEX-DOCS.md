@@ -61,15 +61,15 @@ Workflow | Description | Trigger
 ## 🚀 Quick Start
 
 ```bash
-npx degit heliomarpm/tsapp-template your-app
-cd your-app
+npx degit heliomarpm/tslib-template your-lib
+cd your-lib
 npm install
 ```
 ### 🛠️ Initial Setup
 1. Replace template info:
    - Update `name` and `description` in `package.json`
    - Set version to `0.0.0` in `package.json`
-   - Replace all references to `tsapp-template` and `heliomarpm` in `package.json` and `README.md`
+   - Replace all references to `tslib-template` and `heliomarpm` in `package.json` and `README.md`
    - Delete `CHANGELOG.md`
 
 2. Configure GitHub repository:
@@ -265,9 +265,9 @@ We welcome contributions! Please read:
 
 Thank you to everyone who has already contributed to the project!
 
-<a href="https://github.com/heliomarpm/tsapp-template/graphs/contributors" target="_blank">
-  <!-- <img src="https://contrib.rocks/image?repo=heliomarpm/tsapp-template" /> -->
-  <img src="https://contrib.nn.ci/api?repo=heliomarpm/tsapp-template&no_bot=true" />
+<a href="https://github.com/heliomarpm/tslib-template/graphs/contributors" target="_blank">
+  <!-- <img src="https://contrib.rocks/image?repo=heliomarpm/tslib-template" /> -->
+  <img src="https://contrib.nn.ci/api?repo=heliomarpm/tslib-template&no_bot=true" />
 </a>
 
 <!-- ###### Made with [contrib.rocks](https://contrib.rocks). -->
