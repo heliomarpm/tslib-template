@@ -1,6 +1,6 @@
 <div id="top" align="center" style="text-align:center;">
 <h1>
-  <br> 📦 TypeScript Application Template
+  <br> 📦 TypeScript Library Template
 
   [![CodeQL][url-codeql-badge]][url-codeql]
   [![Test][url-test-badge]][url-test]
