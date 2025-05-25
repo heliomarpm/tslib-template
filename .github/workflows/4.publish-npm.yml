@@ -1,0 +1,129 @@
+name: Publish
+
+on:
+  workflow_dispatch:  # permite execução manual
+  release:
+    types: [published]
+  workflow_run:
+    workflows: ["Release"]
+    branches: [main]
+    types: [completed]
+
+jobs:
+  check-release:
+    if: false  # ⚠️ Publicação desativada. Remova esta linha para habilitar.
+    runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.verify.outputs.should_publish }}
+      release_tag: ${{ steps.verify.outputs.release_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify release
+        id: verify
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            echo "✅ Nova release publicada: ${{ github.event.release.tag_name }}"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+            echo "release_tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "Verificando se há nova tag..."
+            git fetch --tags
+            LATEST_TAG=$(git describe --tags --abbrev=0)
+
+            if [ -n "$LATEST_TAG" ]; then
+              echo "✅ Nova tag detectada: $LATEST_TAG"
+              echo "should_publish=true" >> $GITHUB_OUTPUT
+              echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            else
+              echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
+              echo "should_publish=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+  publish-npm:
+    needs: check-release
+    if: needs.check-release.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Importante para provenance
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '>=20.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts  # Segurança extra
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Notify success
+        if: success()
+        run: echo "✅ Published to NPM -> ${{ needs.check-release.outputs.release_tag }}"
+
+  publish-gpr:
+    needs: check-release
+    if: needs.check-release.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: ${{ github.repository_owner }}
+          cache: 'npm'
+
+      - name: Install and Build package
+        run: |
+          npm ci
+          npm run build
+
+      - name: Verify Package
+        run: npm pack --dry-run
+
+      - name: Publish to GitHub Packages
+        run: npm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify publication
+        run: |
+          echo "📦 Published ${{ needs.check-release.outputs.release_tag }} to GitHub Packages"
+
+      # - name: Verify publication
+      #   run: |
+      #     echo "📦 Publicado no GitHub Packages:"
+      #     curl -sH "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+      #       "https://api.github.com/users/${{ github.repository_owner }}/packages"
+
+      - name: Show successfull publish
+        if: success()
+        run: echo "✅ Published to GPR -> ${{ github.event.release.tag_name }}"
+
+
