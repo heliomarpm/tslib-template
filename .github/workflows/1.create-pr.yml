@@ -54,14 +54,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate commit log
-        run: |
-          echo "" > .github/commit_log.md
-          echo "---" > .github/commit_log.md
-          echo "### 📜 Commits incluídos:" > .github/commit_log.md
-          git log origin/main..origin/develop --oneline >> .github/commit_log.md
-          cat .github/pull_request_auto.md .github/commit_log.md >> .github/pr_body.md
-
+      # - name: Generate commit log
+      #   run: |
+      #     echo "" > .github/commit_log.md
+      #     echo "---" > .github/commit_log.md
+      #     echo "### 📜 Commits incluídos:" > .github/commit_log.md
+      #     git log origin/main..origin/develop --oneline >> .github/commit_log.md
+      #     cat .github/pull_request_auto.md .github/commit_log.md >> .github/pr_body.md
+                    
       - name: Check if PR exists and create if not exists
         run: |
           # Verificar se já existe uma PR
@@ -74,7 +74,7 @@ jobs:
               --base main \
               --head develop \
               --title "🔀 develop → main: $(date +'%Y-%m-%d')" \
-              --body-file .github/pr_body.md \
+              --body-file .github/pull_request_auto.md \
               --assignee "${{ github.actor }}" \
               --label "auto-generated,pending-review"
           else
