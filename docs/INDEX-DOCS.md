@@ -55,6 +55,7 @@ Workflow | Description | Trigger
 `1.create-pr.yml` | Creates or updates a pull request from `develop` to `main` | Push to `develop`
 `2.deploy-docs.yml` | Deploys documentation and coverage badge | After a successful release 
 `3.release.yml` | Generates changelog, tags, and releases | Push to `main`
+`4.publish-npm.yml` | Publishes package to npm | After a successful release
 
 ---
 ## 🚀 Quick Start
@@ -75,9 +76,9 @@ npm install
    - Enable GitHub Actions (Settings → Actions → General)
    - Set up branch protection rules (optional)
    - Configure GitHub Pages for documentation
-  
-<!-- - Generate [npm authentication token](https://docs.npmjs.com/creating-and-viewing-access-tokens) and copy it.
-- [Navigate to your GitHub repository page, click Settings and then Secrets. Click on New repository secret, fill in `NPM_TOKEN` as the Name, paste the npm token created on the previous step inside the Value field and hit Add secret. -->
+   - Remove `if false` from `publish-npm.yml`
+   - Generate [npm authentication token](https://docs.npmjs.com/creating-and-viewing-access-tokens) and copy it.
+   - [Navigate to your GitHub repository page, click Settings and then Secrets. Click on New repository secret, fill in `NPM_TOKEN` as the Name, paste the npm token created on the previous step inside the Value field and hit Add secret.
 
 ---
 ## 📈 Semantic Versioning

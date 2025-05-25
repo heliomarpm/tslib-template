@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "TSApp Template"
+  name: "TSLib Template"
   text: "Reference Model"
-  tagline: TypeScript Template, Vitest, CI/CD, semantic-release, Conventional Changelog, TypeDoc, GitHub Actions
+  tagline: TypeScript Template, Vitest, CI/CD, semantic-release, Conventional Changelog, TypeDoc, NPM/GPR Publishing, GitHub Actions
   
   actions:
     - theme: brand
@@ -17,24 +17,18 @@ hero:
   
   image:
     src: logo.png
-    alt: 'TSApp Template'
+    alt: 'TSLib Template'
     # loading: eager
     # fetchpriority: high
     # width: 320
     # height: 320
 
-features:
-  - icon: 👉
-    title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: https://github.com/heliomarpm
-    
+features:    
   - icon: 🌱
-    title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    link: https://github.com/heliomarpm
+    title: TSApp Template
+    details: TypeScript Template, Vitest, CI/CD, semantic-release, Conventional Changelog, TypeDoc, GitHub Actions
+    link: https://heliomarpm.github.io/tsapp-template/
     
-  # - icon: ❤️
   - icon:
       src: https://navto.me/assets/favicon.png
     title: navto.me
@@ -42,6 +36,3 @@ features:
     link: https://navto.me/heliomarpm
     linkText: Nav to Me
 ---
-
-#### ✍️ Random Dev Quote
-![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight)

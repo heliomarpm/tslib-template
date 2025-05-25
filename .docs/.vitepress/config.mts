@@ -3,9 +3,9 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 // https://vitepress.dev/pt/reference/default-theme-config
 export default defineConfig({
-	title: "TSApp Template",
-	base: "/tsapp-template/",
-	description: "✨ Template for Node and Typescript Application",
+	title: "TSLib Template",
+	base: "/tslib-template/",
+	description: "✨ Template for Node and Typescript based libraries",
 	cleanUrls: true,
 	// head: [
 	// 	["meta", { name: "msvalidate.01", content: "F4D861C3287B312C6D147ECEC9B85E5E" }],
@@ -47,7 +47,7 @@ export default defineConfig({
 		],
 		socialLinks: [
 			// icons 'discord' | 'facebook' | 'github'| 'instagram'| 'linkedin'| 'slack'| 'twitter'| 'youtube'
-			{ icon: "github", link: "https://github.com/heliomarpm/tsapp-template" },
+			{ icon: "github", link: "https://github.com/heliomarpm/tslib-template" },
 			{
 				icon: "npm",
 				// icon: {
@@ -99,7 +99,7 @@ export default defineConfig({
 		},
 		lastUpdatedText: "Updated Date",
 		// editLink: {
-		// 	pattern: "https://github.com/heliomarpm/tsapp-template/tree/main/.docs/:path",
+		// 	pattern: "https://github.com/heliomarpm/tslib-template/tree/main/.docs/:path",
 		// 	text: "Edit this page on GitHub",
 		// },
 	},
