@@ -21,60 +21,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      # - name: Verify release
-      #   id: verify
-      #   run: |
-      #     if [ "${{ github.event_name }}" == "release" ]; then
-      #       echo "✅ Nova release publicada: ${{ github.event.release.tag_name }}"
-      #       echo "should_publish=true" >> $GITHUB_OUTPUT
-      #       echo "release_tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
-      #     else
-      #       echo "Verificando se há nova tag..."
-      #       git fetch --tags
-      #       LATEST_TAG=$(git describe --tags --abbrev=0)
-
-      #       if [ -n "$LATEST_TAG" ]; then
-      #         echo "✅ Nova tag detectada: $LATEST_TAG"
-      #         echo "should_publish=true" >> $GITHUB_OUTPUT
-      #         echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-      #       else
-      #         echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
-      #         echo "should_publish=false" >> $GITHUB_OUTPUT
-      #       fi
-      #     fi
-
-      - name: Fetch tags
-        run: git fetch --tags
+          fetch-depth: 0  # Importante para verificar tags e histórico completo
+          fetch-tags: true  # Garante que as tags remotas sejam baixadas
 
       - name: Verify changes since last tag
         id: verify
         run: |
-          TAGS=($(git tag --sort=-creatordate))
+          git fetch --tags
+          LATEST_TAG=$(git describe --tags --abbrev=0)
 
-          if [ "${#TAGS[@]}" -lt 2 ]; then
-            echo "✅ Menos de duas tags, publica."
+          if [ -n "$LATEST_TAG" ]; then
+            echo "✅ Nova tag detectada: $LATEST_TAG"
             echo "should_publish=true" >> $GITHUB_OUTPUT
-            echo "release_tag=${TAGS[0]}" >> $GITHUB_OUTPUT
+            echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
           else
-            echo "Última tag: ${TAGS[0]}"
-            echo "Penúltima tag: ${TAGS[1]}"
-
-            CHANGED_FILES=$(git diff --name-only ${TAGS[1]} ${TAGS[0]})
-
-            echo "Arquivos alterados:"
-            echo "$CHANGED_FILES"
-
-            if echo "$CHANGED_FILES" | grep -qE "^(src/|README.md|package.json)"; then
-              echo "✅ Alterações relevantes detectadas."
-              echo "should_publish=true" >> $GITHUB_OUTPUT
-            else
-              echo "⚠️ Nenhuma alteração relevante."
-              echo "should_publish=false" >> $GITHUB_OUTPUT
-            fi
-
-            echo "release_tag=${TAGS[0]}" >> $GITHUB_OUTPUT
+            echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
           fi
 
   publish-npm:
