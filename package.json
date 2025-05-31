@@ -5,6 +5,7 @@
   "description": "Template for TypeScript libraries: semantic commits, documentation with TypeDoc, CI/CD with GitHub Actions and automatic publishing to npm — pre-configured with Husky, Vitest and Conventional Changelog.",
   "author": "Heliomar P. Marques",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "homepage": "https://github.com/heliomarpm/tslib-template#readme",
   "bugs": {
