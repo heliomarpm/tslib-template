@@ -80,3 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Opcional: só se publicar no npm
         run: npx semantic-release --debug
+
+      - name: Notify success
+        if: success()
+        run: echo "✅ Release completed successfully -> ${{ github.event.release.tag_name }}"
