@@ -83,4 +83,4 @@ jobs:
 
       - name: Notify success
         if: success()
-        run: echo "✅ Release completed successfully -> ${{ github.event.release.tag_name }}"
+        run: echo "✅ Release completed successfully"
