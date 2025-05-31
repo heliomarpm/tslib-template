@@ -2,6 +2,8 @@ name: Publish
 
 on:
   workflow_dispatch:  # permite execução manual
+  # release:
+  #   types: [published]
   workflow_run:
     workflows: ["Release"]
     branches: [main]
@@ -24,6 +26,26 @@ jobs:
           fetch-depth: 0  # Importante para verificar tags e histórico completo
           fetch-tags: true  # Garante que as tags remotas sejam baixadas
 
+      # - name: Verify changes since last tag
+      #   id: verify
+      #   run: |
+      #     if [ "${{ github.event_name }}" == "release" ]; then
+      #       echo "✅ Nova release publicada: ${{ github.event.release.tag_name }}"
+      #       echo "should_publish=true" >> $GITHUB_OUTPUT
+      #       echo "release_tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+      #     else
+      #       git fetch --tags
+      #       LATEST_TAG=$(git describe --tags --abbrev=0)
+
+      #       if [ -n "$LATEST_TAG" ]; then
+      #         echo "✅ Nova tag detectada: $LATEST_TAG"
+      #         echo "should_publish=true" >> $GITHUB_OUTPUT
+      #         echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+      #       else
+      #         echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
+      #         echo "should_publish=false" >> $GITHUB_OUTPUT
+      #       fi
+      #     fi
       - name: Verify changes since last tag
         id: verify
         run: |
@@ -112,7 +134,7 @@ jobs:
       #     curl -sH "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
       #       "https://api.github.com/users/${{ github.repository_owner }}/packages"
 
-      - name: Verify publication
+      - name: Show successfull publish
         if: success()
         run: echo "📦 Published ${{ needs.check-release.outputs.release_tag }} to GitHub Packages"
 
