@@ -1,6 +1,6 @@
 /**
  * Template inicial para construção de bibliotecas em TypeScript
- * @module
+ *
  * @author Heliomar P. Marques
  */
 import { capitalize, reverseString } from "./utils";

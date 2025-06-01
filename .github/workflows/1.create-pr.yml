@@ -62,6 +62,19 @@ jobs:
       #     git log origin/main..origin/develop --oneline >> .github/commit_log.md
       #     cat .github/pull_request_auto.md .github/commit_log.md >> .github/pr_body.md
 
+      - name: Build PR body with coverage table
+        run: |
+          npm ci
+          npx vitest --reporter=github-actions --coverage --no-watch > coverage-report.txt
+
+          echo "" > .github/coverage.md
+          echo "---" >> .github/coverage.md
+          echo "### 📊 Test Coverage Summary" >> .github/coverage.md
+          echo "\`\`\`" >> .github/coverage.md
+          cat coverage-report.txt >> .github/coverage.md
+          echo "\`\`\`" >> .github/coverage.md
+          cat .github/pull_request_auto.md .github/coverage.md >> .github/pr_body.md
+
       - name: Check if PR exists and create if not exists
         run: |
           # Verificar se já existe uma PR
@@ -74,13 +87,13 @@ jobs:
               --base main \
               --head develop \
               --title "🔀 develop → main: $(date +'%Y-%m-%d')" \
-              --body-file .github/pull_request_auto.md \
+              --body-file .github/pr_body.md \
               --assignee "${{ github.actor }}" \
               --label "auto-generated,pending-review"
           else
             # Se a PR já existir, atualiza o corpo
             echo "Encontrado PR aberta com o número $PR_NUMBER, atualizando..."
-            gh pr edit $PR_NUMBER --body-file .github/pull_request_auto.md
+            gh pr edit $PR_NUMBER --body-file .github/pr_body.md --add-assignee "${{ github.actor }}"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
