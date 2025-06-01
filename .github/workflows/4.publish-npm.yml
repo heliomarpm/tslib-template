@@ -2,22 +2,15 @@ name: Publish
 
 on:
   workflow_dispatch:  # permite execução manual
-  # release:
-  #   types: [published]
-  workflow_run:
-    workflows: ["Release"]
-    branches: [main]
-    types:
-      - completed
+  release:
+    types: [published]
 
 jobs:
-  check-release:
-    if: false  # ⚠️ Publicação desativada. Remova esta linha para habilitar e descomente a condiçao abaixo.
-    #if: github.event.workflow_run.conclusion == 'success'
+  check_code_changes:
     runs-on: ubuntu-latest
     outputs:
-      should_publish: ${{ steps.verify.outputs.should_publish }}
-      release_tag: ${{ steps.verify.outputs.release_tag }}
+      has_code_changes: ${{ steps.check_files.outputs.has_changes }}
+      skip_publish: true  # ⚠️ Publicação desativada. Altere para false para habilitar a publicação
 
     steps:
       - name: Checkout
@@ -26,44 +19,36 @@ jobs:
           fetch-depth: 0  # Importante para verificar tags e histórico completo
           fetch-tags: true  # Garante que as tags remotas sejam baixadas
 
-      # - name: Verify changes since last tag
-      #   id: verify
-      #   run: |
-      #     if [ "${{ github.event_name }}" == "release" ]; then
-      #       echo "✅ Nova release publicada: ${{ github.event.release.tag_name }}"
-      #       echo "should_publish=true" >> $GITHUB_OUTPUT
-      #       echo "release_tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
-      #     else
-      #       git fetch --tags
-      #       LATEST_TAG=$(git describe --tags --abbrev=0)
-
-      #       if [ -n "$LATEST_TAG" ]; then
-      #         echo "✅ Nova tag detectada: $LATEST_TAG"
-      #         echo "should_publish=true" >> $GITHUB_OUTPUT
-      #         echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-      #       else
-      #         echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
-      #         echo "should_publish=false" >> $GITHUB_OUTPUT
-      #       fi
-      #     fi
       - name: Verify changes since last tag
-        id: verify
+        id: check_files
         run: |
-          git fetch --tags
-          LATEST_TAG=$(git describe --tags --abbrev=0)
+          PATHS_TO_CHECK="src"
 
-          if [ -n "$LATEST_TAG" ]; then
-            echo "✅ Nova tag detectada: $LATEST_TAG"
-            echo "should_publish=true" >> $GITHUB_OUTPUT
-            echo "release_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          git fetch --tags
+          CURRENT_TAG=${{ github.event.release.tag_name }}
+          PREVIOUS_TAG=$(git tag --sort=-v:refname | sed -n '2p')
+
+          echo "Release atual: $CURRENT_TAG"
+
+          if [ -z "$PREVIOUS_TAG" ]; then
+            echo "✅ Nenhuma tag anterior encontrada. Assumindo que é a primeira release."
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           else
-            echo "⚠️ Nenhuma tag encontrada. Publicação será ignorada."
-            echo "should_publish=false" >> $GITHUB_OUTPUT
+            echo "Release anterior: $PREVIOUS_TAG"
+            echo "Verificando alterações nos caminhos: '$PATHS_TO_CHECK'"
+
+            if git diff --quiet $PREVIOUS_TAG $CURRENT_TAG -- $PATHS_TO_CHECK; then
+              echo "⚠️ Nenhuma alteração de código detectada. Publicação ignorada."
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+            else
+              echo "✅ Alterações de código detectadas. A publicação irá prosseguir."
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+            fi
           fi
 
   publish-npm:
-    needs: check-release
-    if: needs.check-release.outputs.should_publish == 'true'
+    needs: check_code_changes
+    if: needs.check_code_changes.outputs.has_code_changes == 'true' && needs.check_code_changes.outputs.skip_publish != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -73,7 +58,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Importante para provenance
+          ref: ${{ github.event.release.tag_name }}   # Faz o checkout da tag exata da release para garantir consistência
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -92,13 +77,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Notify success
+      - name: Show successfull publish
         if: success()
-        run: echo "✅ Published to NPM -> ${{ needs.check-release.outputs.release_tag }}"
+        run: echo "📦 Published to NPM -> ${{ github.event.release.tag_name }}"
 
   publish-gpr:
-    needs: check-release
-    if: needs.check-release.outputs.should_publish == 'true'
+    needs: check_code_changes
+    if: needs.check_code_changes.outputs.has_code_changes == 'true' && needs.check_code_changes.outputs.skip_publish != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -128,14 +113,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Verify publication
-      #   run: |
-      #     echo "📦 Publicado no GitHub Packages:"
-      #     curl -sH "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-      #       "https://api.github.com/users/${{ github.repository_owner }}/packages"
-
       - name: Show successfull publish
         if: success()
-        run: echo "📦 Published ${{ needs.check-release.outputs.release_tag }} to GitHub Packages"
+        run: echo "📦 Published to GHP -> ${{ github.event.release.tag_name }}"
 
 
