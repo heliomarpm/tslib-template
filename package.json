@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@heliomarpm/tslib-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template for TypeScript libraries: semantic commits, documentation with TypeDoc, CI/CD with GitHub Actions and automatic publishing to npm — pre-configured with Husky, Vitest and Conventional Changelog.",
   "author": "Heliomar P. Marques",
   "main": "dist/index.js",
