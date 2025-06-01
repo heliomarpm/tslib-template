@@ -93,7 +93,7 @@ jobs:
           else
             # Se a PR já existir, atualiza o corpo
             echo "Encontrado PR aberta com o número $PR_NUMBER, atualizando..."
-            gh pr edit $PR_NUMBER --body-file .github/pr_body.md --assignee "${{ github.actor }}"
+            gh pr edit $PR_NUMBER --body-file .github/pr_body.md --add-assignee "${{ github.actor }}"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
