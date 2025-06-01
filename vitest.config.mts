@@ -6,7 +6,7 @@ export default defineConfig({
 		environment: "node", // Use jsdom for browser-like tests
 		reporters: ["verbose"], // Use verbose reporter for detailed output
 		coverage: {
-			reporter: ["text", "lcov", "json-summary", "json"],
+			reporter: ["text", "text-summary", "lcov", "json-summary", "json"],
 			reportsDirectory: "./coverage",
 			include: ["src"],
 			exclude: ["src/**/*.d.ts"],
