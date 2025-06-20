@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@heliomarpm/tslib-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Template for TypeScript libraries: semantic commits, documentation with TypeDoc, CI/CD with GitHub Actions and automatic publishing to npm — pre-configured with Husky, Vitest and Conventional Changelog.",
   "author": "Heliomar P. Marques",
   "main": "dist/index.js",
@@ -31,7 +31,7 @@
     "ci-cd"
   ],
   "scripts": {
-    "check": "biome check",
+    "check": "biome check --write",
     "lint": "biome lint --write",
     "format": "biome format --write",
     "test": "vitest --no-watch --reporter=verbose",
@@ -42,10 +42,11 @@
     "release:test": "semantic-release --dry-run --no-ci",
     "predocs": "typedoc",
     "docs": "vitepress build .docs",
-    "docs:dev": "npm run predocs && vitepress dev .docs"
+    "docs:dev": "npm run predocs && vitepress dev .docs",
+    "clean": "rm -rf node_modules coverage dist .docs/app .docs/.vitepress/dist .docs/.vitepress/cache"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.2",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -70,6 +71,7 @@
   },
   "lint-staged": {
     "*.{ts,js}": [
+      "vitest --no-watch",
       "biome check --write ."
     ],
     "*.{yml,json,md}": [

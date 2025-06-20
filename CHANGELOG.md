@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/heliomarpm/tslib-template/compare/v1.0.0...v1.1.0) (2025-06-01)
+
+
+### Features
+
+* :bulb: remover anotações de módulo desnecessárias ([d51d5ad](https://github.com/heliomarpm/tslib-template/commit/d51d5adfd7dfba319d12246a950ab04beb7d5887))
+* **tests:** :sparkles: adicionar configuração do Vitest ([691b9a2](https://github.com/heliomarpm/tslib-template/commit/691b9a235575eb467670eb06ece46a81ed01aa26))
+
 # 1.0.0 (2025-05-25)
 
 

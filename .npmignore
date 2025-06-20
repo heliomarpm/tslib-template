@@ -1,0 +1,12 @@
+.*
+docs
+src
+test
+tests
+coverage
+tsconfig.*
+*.config.*
+typedoc.json
+biome.json
+logo.png
+CHANGELOG.md
