@@ -5,5 +5,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "explicit"
-  }
+  },
+  "errorLens.codeLensEnabled": true,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.messageTemplate": "[$source]($code) $message (+$count)"
 }
