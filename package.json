@@ -46,7 +46,7 @@
     "clean": "rm -rf node_modules coverage dist .docs/app .docs/.vitepress/dist .docs/.vitepress/cache"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.2",
+    "@biomejs/biome": "^2.0.6",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -70,12 +70,8 @@
     "vitest": "^3.1.3"
   },
   "lint-staged": {
-    "*.{ts,js}": [
-      "vitest --no-watch",
-      "biome check --write ."
-    ],
-    "*.{yml,json,md}": [
-      "biome format --write ."
+    "*.{ts,js,mts,json,jsonc,yml}": [
+      "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched"
     ]
   },
   "config": {
